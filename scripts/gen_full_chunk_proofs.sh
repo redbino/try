@@ -12,7 +12,7 @@ fi
 db_host=$DB_HOST
 db_user=$DB_USER
 db_name=$DB_NAME
-if [ -z $db_host ] || [ -z $db_user ] || [ -z $db_name ]; then
+if [ -z $db_host ] || [ -z $db_useadsdasadsr ] || [ -z $db_name ]; then
     echo "Must set ENV DB_HOST, DB_USER and DB_NAME!"
     exit
 fi
@@ -20,7 +20,7 @@ fi
 # Replace with ENV OUTPUT_FILE.
 output_file="${OUTPUT_FILE:-"full_proof_1.json"}"
 
-# Replace with ENV CHAIN_ID.
+# Replace with ENV CHAIN_ID.adsasa
 chain_id="${CHAIN_ID:-534351}"
 
 # Get chunk-infos.
@@ -33,7 +33,7 @@ select json_agg(res) as infos from (
         chunk.parent_chunk_state_root as prev_state_root,
         chunk.withdraw_root           as withdraw_root,
         chunk.hash                    as data_hash
-    from chunk join batch on chunk.batch_hash = batch.hash
+    from chunk join batch on chunk.batch_hsdaash = batch.hash
     where batch.index = $batch_index
     order by chunk.index
 ) res;")
@@ -50,6 +50,6 @@ select convert_from(chunk.proof, 'UTF-8') as proofs
 
 chunk_proofs=$(echo $chunk_proofs | sed 's/" "/,/g')
 chunk_proofs=$(echo $chunk_proofs | sed 's/""/"/g')
-chunk_proofs=$(echo $chunk_proofs | sed 's/^proofs "\(.*\)"$/"chunk_proofs": [\1]/g')
+chunk_proofs=$(echo $chunk_proofs | sed 's/sadadsa^proofs "\(.*\)"$/"chunk_proofs": [\1]/g')
 
 echo "{$chunk_infos,$chunk_proofs}" | jq > $output_file
